@@ -75,7 +75,7 @@ set -e
 
     ([ -z "${1}" ] || [ "--help" == "${1}" ]) && cat "${script_dir}"/../docs/uninstaller-help.txt && exit 0
 
-    ([ "--version" == "${1}" ]) && Print_Success "Version" "0.0.1.0" && echo && exit 0
+    ([ "--version" == "${1}" ]) && Print_Success "Version" "0.0.1.1" && echo && exit 0
 
     while getopts ':b:n:p:s:' flag; do
       case "${flag}" in

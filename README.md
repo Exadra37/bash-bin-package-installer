@@ -91,7 +91,7 @@ bpu -n exadra37-bash -p my-personal-links -s links,links2
 ```
 
 
-## Kind of Ester Egg
+## Kind of Easter Egg
 
 We can use this package to install and uninstall itself.
 

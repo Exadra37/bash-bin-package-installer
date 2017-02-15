@@ -12,13 +12,17 @@
 # @link    Linkedin: https://uk.linkedin.com/in/exadra37
 # @link    Twitter:  https://twitter.com/Exadra37
 
-package_version="0.0.1.0"
+set -e
+
+checkout_to="last-release"
 home_bin_dir=/home/"${USER}"/bin
-install_dir="${home_bin_dir}"/vendor/exadra37-bash
+install_dir="${home_bin_dir}"/vendor/exadra37-bash/bin-package-installer
 git_url=https://github.com/exadra37-bash/bin-package-installer.git
 
 mkdir -p "${install_dir}" &&
 cd "${install_dir}" &&
-git clone -q --depth 1 -b "${package_version}" "${git_url}" . &&
-git checkout -q -b "${package_version}" &&
-ln -s "${install_dir}"/bin-package-installer/src/installer.sh "${home_bin_dir}"/bpi
+git clone -q --depth 1 -b "${checkout_to}" "${git_url}" . &&
+ln -s "${install_dir}"/src/installer.sh "${home_bin_dir}"/bpi &&
+ln -s "${install_dir}"/src/uninstaller.sh "${home_bin_dir}"/bpu &&
+printf "\n\e[1;42m Installed Successfully:\e[30;48;5;229m Try bpi --help or bpu --help to see How to Use. \e[0m \n" &&
+echo

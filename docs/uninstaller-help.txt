@@ -1,0 +1,78 @@
+
+---> NAME <---
+
+bpu - Bash Package UnInstaller
+
+
+---> VERSION <---
+
+0.0.1.0
+
+
+---> AUTHOR <---
+
+Exadra37(Paulo Silva) <exadra37ingmailpointcom>
+
+
+---> SYNOPSIS <---
+
+bpu [REQUIRED <-n value> <-p value> <-s value>] [OPTIONAL <-b value>]
+
+
+---> DESCRIPTION <---
+
+Allow to uninstall a Bash Package previously installed with Bash Package Installer.
+
+
+---> PARAMETERS <---
+
+We have Required and Optional parameters.
+
+-> Required
+
+Name        Example Values         Description
+
+-n          exadra37-bash          The Vendor Name.
+-p          package-manager        The Package Name.
+-s          bpm or bpm,bpa         The Symbolic Link Name to be removed. Can be a comma separated list.
+
+
+-> Optional
+
+Name        Default Value       Example Values         Description
+
+-b          /home/$USER/bin     /bin/usr               The Bin Dir to uninstall the Package.
+
+
+---> USAGE EXAMPLES <---
+
+The order we specify the parameters are not important.
+
+-> With Required Parameters
+
+bpu -n exadra37-bash -p package-manager -s bpm
+
+bpu -n exadra37-bash -p package-manager -s bpm,bpa
+
+
+-> With Required and Optional Parameters
+
+bpu -n exadra37-bash -p package-manager -s bpm -b /bin/usr
+
+bpu -n exadra37-bash -p package-manager -s bpm,bpa -b /bin/usr
+
+
+---> AUTHOR LINKS <---
+
+    Name: Exadra37(Paulo Silva) <exadra37ingmailpointcom>
+    Site: https://exadra37.com
+  Gitlab: https://gitlab.com/Exadra37
+  Github: https://github.com/Exadra37
+Linkedin: https://uk.linkedin.com/in/exadra37
+ Twitter: https://twitter.com/Exadra37
+
+If you like my work, please show your appreciation by sharing it on Social Networks.
+
+Follow me to be up to date with my recent releases.
+
+

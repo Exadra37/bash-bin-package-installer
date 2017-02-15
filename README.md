@@ -23,11 +23,11 @@ curl -L https://github.com/exadra37-bash/bin-package-installer/raw/last-release/
 #### checking that was correctly installed
 
 ```bash
-bpi --help
+bpi --version
 ```
 
 ```bash
-bpu --help
+bpu --version
 ```
 
 ## How To Use
@@ -43,7 +43,7 @@ bpi --help
 It takes the form of `bpi <vendor-name> <package-name> <package-tag> <symlink:script_to_link>`.
 
 ```bash
-bpi exadra37-bash my-personal-links 0.0.1.0 links:src/my-personal-links.sh
+bpi -n exadra37-bash -p my-personal-links -t 0.0.1.0 -s links:src/my-personal-links.sh
 ```
 
 #### Without Installing Locally
@@ -81,13 +81,13 @@ It takes the form of `bpu <vendor-name> <package-name> <symlink1,symlink2>`.
 #### With Only One Symbolic Link
 
 ```bash
-bpu exadra37-bash my-personal-links 0.0.1.0 links
+bpu -n exadra37-bash -p my-personal-links -s links
 ```
 
 #### With Several Symbolic Links
 
 ```bash
-bpu exadra37-bash my-personal-links 0.0.1.0 links,links2
+bpu -n exadra37-bash -p my-personal-links -s links,links2
 ```
 
 

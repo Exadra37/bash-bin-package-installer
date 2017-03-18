@@ -83,7 +83,7 @@ set -e
 
                 mkdir -p "${package_manager_dir}" &&
                 cd "${package_manager_dir}" &&
-                git clone -q --depth 1 -b "0.2.0" "${git_url}" . &&
+                git clone -q --depth 1 -b "0.0.2.1" "${git_url}" . &&
                 git checkout -q -b 0.0.2.1 &&
                 ./self-install.sh
         fi

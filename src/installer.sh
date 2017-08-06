@@ -182,7 +182,7 @@ set -e
 
     cd "${bin_dir}" &&
     # bpm require exadra37-bash git-helpers 1.0.0.0
-    bpm require "${vendor_name}" "${package_name}" "${package_tag}"
+    bpm require "${vendor_name}" "${package_name}" "${package_tag}" "${domain}"
 
     # symlinks map is like 'symlink:bash-script.sh' or 'symlink:bash-script.sh,symlink2:bash-script2.sh'
     IFS=',' read -ra maps <<< "${symlinks_map}"

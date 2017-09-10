@@ -176,6 +176,8 @@ set -e
 # Execution
 ########################################################################################################################
 
+    Export_Path
+
     Install_Bash_Package_Manager "${bin_dir}"
 
     cd "${bin_dir}" &&
@@ -213,8 +215,6 @@ set -e
 
             ln -s "${symlink_to}" "${bin_dir}"/"${symlink}"
     done
-
-    Export_Path
 
     # remove comma from the end of the string 'symlink1, symlink2,'
     new_symlinks=${new_symlinks%,*}

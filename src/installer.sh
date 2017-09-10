@@ -71,9 +71,11 @@ set -e
     {
         local bin_dir="${1}"
 
-        local package_manager_dir="${bin_dir}"/vendor/exadra37-bash/package-manager
-        local bash_package_manager="${package_manager_dir}"/src/package-manager.sh
-        local git_url=https://github.com/exadra37-bash/package-manager.git
+        local bash_package_manager_version="0.0.4.0"
+
+        local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/${package_manager_dir}/src/package-manager.sh"
+
+        local git_url="https://github.com/exadra37-bash/package-manager/raw/${bash_package_manager_version}/self-install.sh"
 
         if [ ! -f "${bash_package_manager}" ]
             then
@@ -81,11 +83,7 @@ set -e
                 Print_Info "Installing Bash Package Manager from" "${git_url}"
                 Abort_If_Url_Not_Available "${git_url}"
 
-                mkdir -p "${package_manager_dir}" &&
-                cd "${package_manager_dir}" &&
-                git clone -q --depth 1 -b "0.0.2.1" "${git_url}" . &&
-                git checkout -q -b 0.0.2.1 &&
-                ./self-install.sh
+                curl -L "${git_url}" | bash -s -- "${bash_package_manager_version}"
         fi
     }
 

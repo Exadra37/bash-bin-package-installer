@@ -17,7 +17,7 @@ Is possible to use it without install it locally. Please see How To Use section.
 #### Lets use the self installer:
 
 ```
-curl -L https://github.com/exadra37-bash/bin-package-installer/raw/last-release/self-installer.sh | bash -s
+curl -L https://gitlab.com/exadra37-bash/bin-package-installer/raw/last-stable-release/self-installer.sh | bash -s
 ```
 
 #### checking that was correctly installed
@@ -51,7 +51,7 @@ bpi -n exadra37-bash -p my-personal-links -t 0.0.1.0 -s links:src/my-personal-li
 Lets use CURL to run it directly from Github in the form of `CURL -L <git-url-to-raw-script> | bash -s <vendor-name> <package-name> <package-tag> <symlink:script_to_link>`.
 
 ```bash
-curl -L https://github.com/exadra37-bash/bin-package-installer/raw/0.0.1.0/src/installer.sh | bash -s -- -n exadra37-bash -p my-personal-links -t 0.0.1.0 -s links:src/my-personal-links.sh
+curl -L https://github.com/exadra37-bash/bin-package-installer/raw/last-stable-release/src/installer.sh | bash -s -- -n exadra37-bash -p my-personal-links -t 0.0.1.0 -s links:src/my-personal-links.sh
 ```
 
 #### Now lets try our recent installed bash package:
@@ -98,7 +98,7 @@ We can use this package to install and uninstall itself.
 #### Install Itself
 
 ```bash
-curl -L https://github.com/exadra37-bash/bin-package-installer/raw/last-release/src/installer.sh | bash -s -- -n exadra37-bash -p bin-package-installer -t 0.0.1.0 -s bpi:src/installer.sh,bpu:src/uninstaller.sh
+curl -L https://gitlab.com/exadra37-bash/bin-package-installer/raw/last-stable-release/self-installer.sh | bash -s -- -n exadra37-bash -p bin-package-installer -t last-stable-release -s bpi:src/installer.sh,bpu:src/uninstaller.sh
 ```
 
 #### Uninstall Itself

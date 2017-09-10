@@ -71,7 +71,7 @@ set -e
     {
         local bin_dir="${1}"
 
-        local bash_package_manager_version="0.0.4.0"
+        local bash_package_manager_version="0.0.4.1"
 
         local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/${package_manager_dir}/src/package-manager.sh"
 

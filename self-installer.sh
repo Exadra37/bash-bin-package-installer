@@ -48,18 +48,20 @@ function Install_Bash_Package_Manager()
     fi
 }
 
-bash_package_manager_version="last-stable-release"
-checkout_to="last-stable-release"
-bin_dir=/home/"${USER}"/bin
+checkout_to="${1:-last-stable-release}"
+bin_dir="${2:-/home/${USER}/bin}"
+bash_package_manager_version="${3:-last-stable-release}"
+
 install_dir="${bin_dir}"/vendor/exadra37-bash/bin-package-installer
+
 git_url=https://github.com/exadra37-bash/bin-package-installer.git
 
-Install_Bash_Package_Manager "${bin_dir}" "${bash_package_manager_version}"
 
 mkdir -p "${install_dir}" &&
 cd "${install_dir}" &&
 git clone -q --depth 1 -b "${checkout_to}" "${git_url}" . &&
 ln -s "${install_dir}"/src/installer.sh "${bin_dir}"/bpi &&
 ln -s "${install_dir}"/src/uninstaller.sh "${bin_dir}"/bpu &&
+Install_Bash_Package_Manager "${bin_dir}" "${bash_package_manager_version}" &&
 printf "\n\e[1;42m Installed Successfully:\e[30;48;5;229m Try bpi --help or bpu --help to see How to Use. \e[0m \n" &&
 echo

@@ -71,9 +71,9 @@ set -e
     {
         local bin_dir="${1}"
 
-        local bash_package_manager_version="0.0.4.1"
+        local bash_package_manager_version="last-stable-release"
 
-        local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/${package_manager_dir}/src/package-manager.sh"
+        local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/src/package-manager.sh"
 
         local git_url="https://github.com/exadra37-bash/package-manager/raw/${bash_package_manager_version}/self-install.sh"
 
@@ -179,6 +179,11 @@ set -e
     Export_Path
 
     Install_Bash_Package_Manager "${bin_dir}"
+
+    if [ "${vendor_name}/${package_name}" = "exadra37-bash/package-manager" ]
+        then
+            exit 0
+    fi
 
     cd "${bin_dir}" &&
     # bpm require exadra37-bash git-helpers 1.0.0.0

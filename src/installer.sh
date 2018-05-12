@@ -31,47 +31,11 @@ set -e
         fi
     }
 
-    function Is_Home_User_Bin_Not_In_Path()
-    {
-        local home_path="${1}"
-        local file_name="${2}"
-
-        local shell_file="${home_path}"/"${file_name}"
-
-        if [ $(grep -c "${home_path}" "${shell_file}") -eq 0 ] || [ $(grep -c ~/bin "${shell_file}") -eq 0 ]
-            then
-                return 0
-        fi
-
-        return 1
-    }
-
-    function Export_Path()
-    {
-        local home_path=/home/"${USER}"
-        local home_bin_path="${home_user}/bin"
-
-        if [ -f "${home_path}"/.profile ] && Is_Home_User_Bin_Not_In_Path "${home_path}" ".profile"
-            then
-                echo "export PATH=${home_bin_path}:${PATH}"  >> "${home_path}/.profile"
-        fi
-
-        if [ -f "${home_path}"/.bash_profile ] && Is_Home_User_Bin_Not_In_Path "${home_path}" ".bash_profile"
-            then
-                echo "export PATH=${home_bin_path}:${PATH}"  >> "${home_path}/.bash_profile"
-        fi
-
-        if [ -f "${home_path}"/.zshrc ] && Is_Home_User_Bin_Not_In_Path "${home_path}" ".zshrc"
-            then
-                echo "export PATH=${home_bin_path}:${PATH}"  >> "${home_path}/.zshrc"
-        fi
-    }
-
     function Install_Bash_Package_Manager()
     {
-        local bin_dir="${1}"
+        local bin_dir="${1?}"
 
-        local bash_package_manager_version="last-stable-release"
+        local bash_package_manager_version="${2?}"
 
         local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/src/package-manager.sh"
 
@@ -80,10 +44,10 @@ set -e
         if [ ! -f "${bash_package_manager}" ]
             then
 
-                Print_Info "Installing Bash Package Manager from" "${git_url}"
+                Print_Info "Using Bash Package Manager self installer" "${git_url}"
                 Abort_If_Url_Not_Available "${git_url}"
 
-                curl -L "${git_url}" | bash -s -- "${bash_package_manager_version}"
+                curl -sL "${git_url}" | bash -s -- "${bash_package_manager_version}" "${bin_dir}"
         fi
     }
 
@@ -128,6 +92,7 @@ set -e
     script_dir=$(dirname $(readlink -f $0))
     bin_dir=/home/"${USER}"/bin
     domain="github.com"
+    bash_package_manager_version="last-stable-release"
 
 
 ########################################################################################################################
@@ -136,12 +101,13 @@ set -e
 
     ([ -z "${1}" ] || [ "--help" == "${1}" ]) && cat "${script_dir}"/../docs/installer-help.txt && exit 0
 
-    ([ "--version" == "${1}" ]) && Print_Success "Version" "0.0.1.1" && echo && exit 0
+    ([ "-v" == "${1}" ] || [ "--version" == "${1}" ]) && cd ${script_dir} && (git describe --exact-match 2> /dev/null || git rev-parse --abbrev-ref HEAD) && exit 0
 
-    while getopts ':b:d:n:p:s:t:' flag; do
+    while getopts ':b:d:m:n:p:s:t:' flag; do
       case "${flag}" in
         b) bin_dir="${OPTARG}" ;;
         d) domain="${OPTARG}" ;;
+        m) bash_package_manager_version="${OPTARG}" ;;
         n) vendor_name="${OPTARG}" ;;
         p) package_name="${OPTARG}" ;;
         s) symlinks_map="${OPTARG}" ;;
@@ -169,20 +135,20 @@ set -e
 ########################################################################################################################
 
     new_symlinks=""
-    install_dir=/home/"${USER}"/bin/vendor/"${vendor_name}"/"${package_name}"
+    install_dir="${bin_dir}"/vendor/"${vendor_name}"/"${package_name}"
 
 
 ########################################################################################################################
 # Execution
 ########################################################################################################################
 
-    Export_Path
-
-    Install_Bash_Package_Manager "${bin_dir}"
 
     if [ "${vendor_name}/${package_name}" == "exadra37-bash/package-manager" ]
         then
+            Install_Bash_Package_Manager "${bin_dir}" "${package_tag}"
             exit 0
+        else
+            Install_Bash_Package_Manager "${bin_dir}" "${bash_package_manager_version}"
     fi
 
     cd "${bin_dir}" &&

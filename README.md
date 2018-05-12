@@ -89,20 +89,3 @@ bpu -n exadra37-bash -p my-personal-links -s links
 ```bash
 bpu -n exadra37-bash -p my-personal-links -s links,links2
 ```
-
-
-## Kind of Easter Egg
-
-We can use this package to install and uninstall itself.
-
-#### Install Itself
-
-```bash
-curl -L https://gitlab.com/exadra37-bash/bin-package-installer/raw/last-stable-release/self-installer.sh | bash -s -- -n exadra37-bash -p bin-package-installer -t last-stable-release -s bpi:src/installer.sh,bpu:src/uninstaller.sh
-```
-
-#### Uninstall Itself
-
-```bash
-bpu -p bin-package-installer -n exadra37-bash -s bpi,bpu
-```

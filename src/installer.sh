@@ -18,39 +18,6 @@ set -e
 # Functions
 ########################################################################################################################
 
-    function Abort_If_Url_Not_Available()
-    {
-        local url="${1}"
-
-        local http_status_code=$( curl -L -s -o /dev/null -w "%{http_code}" "${url}")
-
-        if [ "${http_status_code}" -gt 299 ]
-            then
-                Print_Warning "Http Status Code" "${http_status_code}"
-                Print_Fatal_Error "Url not Available" "${url}"
-        fi
-    }
-
-    function Install_Bash_Package_Manager()
-    {
-        local bin_dir="${1?}"
-
-        local bash_package_manager_version="${2?}"
-
-        local bash_package_manager="${bin_dir}/vendor/exadra37-bash/package-manager/src/package-manager.sh"
-
-        local git_url="https://github.com/exadra37-bash/package-manager/raw/${bash_package_manager_version}/self-install.sh"
-
-        if [ ! -f "${bash_package_manager}" ]
-            then
-
-                Print_Info "Using Bash Package Manager self installer" "${git_url}"
-                Abort_If_Url_Not_Available "${git_url}"
-
-                curl -sL "${git_url}" | bash -s -- "${bash_package_manager_version}" "${bin_dir}"
-        fi
-    }
-
     function Print_Fatal_Error()
     {
         printf "\n \e[1;101m ${1}: \e[30;48;5;229m ${2} \e[0m \n"
@@ -92,7 +59,6 @@ set -e
     script_dir=$(dirname $(readlink -f $0))
     bin_dir=/home/"${USER}"/bin
     domain="github.com"
-    bash_package_manager_version="last-stable-release"
 
 
 ########################################################################################################################
@@ -103,11 +69,10 @@ set -e
 
     ([ "-v" == "${1}" ] || [ "--version" == "${1}" ]) && cd ${script_dir} && (git describe --exact-match 2> /dev/null || git rev-parse --abbrev-ref HEAD) && exit 0
 
-    while getopts ':b:d:m:n:p:s:t:' flag; do
+    while getopts ':b:d:n:p:s:t:' flag; do
       case "${flag}" in
         b) bin_dir="${OPTARG}" ;;
         d) domain="${OPTARG}" ;;
-        m) bash_package_manager_version="${OPTARG}" ;;
         n) vendor_name="${OPTARG}" ;;
         p) package_name="${OPTARG}" ;;
         s) symlinks_map="${OPTARG}" ;;
@@ -142,14 +107,6 @@ set -e
 # Execution
 ########################################################################################################################
 
-
-    if [ "${vendor_name}/${package_name}" == "exadra37-bash/package-manager" ]
-        then
-            Install_Bash_Package_Manager "${bin_dir}" "${package_tag}"
-            exit 0
-        else
-            Install_Bash_Package_Manager "${bin_dir}" "${bash_package_manager_version}"
-    fi
 
     cd "${bin_dir}" &&
     # bpm require exadra37-bash git-helpers 1.0.0.0

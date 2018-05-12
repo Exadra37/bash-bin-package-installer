@@ -180,7 +180,7 @@ set -e
 
     Install_Bash_Package_Manager "${bin_dir}"
 
-    if [ "${vendor_name}/${package_name}" = "exadra37-bash/package-manager" ]
+    if [ "${vendor_name}/${package_name}" == "exadra37-bash/package-manager" ]
         then
             exit 0
     fi

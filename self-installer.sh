@@ -14,7 +14,7 @@
 
 set -e
 
-checkout_to="last-release"
+checkout_to="last-stable-release"
 home_bin_dir=/home/"${USER}"/bin
 install_dir="${home_bin_dir}"/vendor/exadra37-bash/bin-package-installer
 git_url=https://github.com/exadra37-bash/bin-package-installer.git

@@ -152,8 +152,8 @@ set -e
 ########################################################################################################################
 
 	version="${1:-last-stable-release}"
-	bin_dir="${2:-/home/${USER}/bin}"
-	bash_package_manager_version="${3:-last-stable-release}"
+	bash_package_manager_version="${2:-last-stable-release}"
+	bin_dir="${3:-/home/${USER}/bin}"
 
 	install_dir="${bin_dir}"/vendor/exadra37-bash/bin-package-installer
 

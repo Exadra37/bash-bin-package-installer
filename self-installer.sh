@@ -145,7 +145,7 @@ set -e
         #   fatal: A branch named 'last-stable-release' already exists.
         git checkout -q -b "${package_version}" 2>/dev/null || true
 
-        cd -
+        cd - > /dev/null
     }
 
 

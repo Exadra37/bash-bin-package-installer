@@ -14,6 +14,10 @@
 
 set -e
 
+function Print_Info()
+{
+    printf "\n\e[1;36m ${1}:\e[0m ${2} \n"
+}
 
 function Abort_If_Url_Not_Available()
 {
@@ -49,12 +53,12 @@ function Install_Bash_Package_Manager()
 }
 
 checkout_to="${1:-last-stable-release}"
-bin_dir="${2:-/home/${USER}/bin}"
+bin_dir="${2:-/home/$(id -un)/bin}"
 bash_package_manager_version="${3:-last-stable-release}"
 
 install_dir="${bin_dir}"/vendor/exadra37-bash/bin-package-installer
 
-git_url=https://github.com/exadra37-bash/bin-package-installer.git
+git_url=https://gitlab.com/exadra37-bash/bin-package-installer.git
 
 
 mkdir -p "${install_dir}" &&

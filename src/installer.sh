@@ -57,7 +57,7 @@ set -e
 ########################################################################################################################
 
     script_dir=$(dirname $(readlink -f $0))
-    bin_dir=/home/"${USER}"/bin
+    bin_dir=/home/$(id -un)/bin
     domain="github.com"
 
 
@@ -107,6 +107,11 @@ set -e
 # Execution
 ########################################################################################################################
 
+    # Needed for when we source the script directly from the repository, just
+    #  like we do inside the `if` with the `self-installer.sh`.
+    if [ ! -f "${bin_dir}"/vendor/exadra37-bash/bin-package-installer/self-installer.sh ]; then
+        curl -fsSL https://gitlab.com/exadra37-bash/bin-package-installer/raw/master/self-installer.sh | bash -s "last-stable-release" "${bin_dir}"
+    fi
 
     cd "${bin_dir}" &&
     # bpm require exadra37-bash git-helpers 1.0.0.0
